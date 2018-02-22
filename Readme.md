@@ -8,7 +8,9 @@ SSM框架项目
 
 ![管理员模块](src/main/resources/content3.png)
 
+2. 实体类划分
 
+![实体类划分](src/main/resources/classes.png)
 参考博客:
 
 [1.idea配置maven](http://blog.csdn.net/mr_ooo/article/details/53871828)
