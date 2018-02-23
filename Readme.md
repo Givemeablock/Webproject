@@ -2,15 +2,15 @@ SSM框架项目
 
 1. 模块划分
 
-![前端展示模块](src/main/resources/content1.png)
+![前端展示模块](pic/content1.png)
 
-![商家模块](src/main/resources/content2.png)
+![商家模块](pic/content2.png)
 
-![管理员模块](src/main/resources/content3.png)
+![管理员模块](pic/content3.png)
 
 2. 实体类划分
 
-![实体类划分](src/main/resources/classes.png)
+![实体类划分](pic/classes.png)
 参考博客:
 
 [1.idea配置maven](http://blog.csdn.net/mr_ooo/article/details/53871828)
