@@ -16,3 +16,5 @@ SSM框架项目
 [1.idea配置maven](http://blog.csdn.net/mr_ooo/article/details/53871828)
 
 [2.idea配置tomcat启动项目](https://www.cnblogs.com/Fly-Bob/p/7240153.html)
+
+[3.数据库连接池原理](http://blog.csdn.net/shuaihj/article/details/14223015)
