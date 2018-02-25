@@ -8,6 +8,11 @@
   <name>Web Maven Webapp</name>
   <url>http://maven.apache.org</url>
 
+
+    <properties>
+      <spring.version>5.0.4.RELEASE</spring.version>
+    </properties>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -27,42 +32,42 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
-      <version>5.0.4.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
 
     <!--包括访问配置文件，管理和创建bean以及ico操作相关类，若应用只需要基本ioc/di支持，引入spring-core和bean就可以了-->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-beans</artifactId>
-      <version>5.0.4.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
 
     <!--为spring核心提供了大量扩展-->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-      <version>5.0.4.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
 
     <!--spring对jdbc的封装-->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
-      <version>5.0.4.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
 
     <!--对jdbc.hibernate提供一致声明式和编程事务管理-->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-tx</artifactId>
-      <version>5.0.4.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
 
     <!--spring web包含web开发等类-->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
-      <version>5.0.4.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
 
 
@@ -70,14 +75,14 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-      <version>5.0.4.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
 
     <!---->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>5.0.4.RELEASE</version>
+      <version>${spring.version}</version>
       <scope>test</scope>
     </dependency>
 
