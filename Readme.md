@@ -22,3 +22,7 @@ SSM框架项目
 [3.数据库连接池原理](http://blog.csdn.net/shuaihj/article/details/14223015)
 
 [4.ssm框架配置文件详解](http://blog.csdn.net/baidu_32739019/article/details/73928040)
+
+[5.spring-dao配置](http://blog.csdn.net/yzllz001/article/details/54809231)
+
+
