@@ -30,4 +30,6 @@ SSM框架项目
 
 [7.spring参考学习博客](http://www.cnblogs.com/szlbm/category/830578.html)
 
+[8.从Controller注解切入了解spring注解原理](http://blog.csdn.net/jack_wang001/article/details/78781588)
+
 
