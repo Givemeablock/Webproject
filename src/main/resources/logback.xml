@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration scan="true" scanPeriod="60 seconds" debug="false">
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
     <!--定义参数常量-->
     <!--TRACE<DEBUG<INFO<WARN<ERROR-->
     <!--logger.trace("msg"),logger.debug("msg")..-->
     <property name="log.level" value="debug"/>
     <property name="log.maxHistory" value="30"/>
-    <property name="file.path" value="${cataline.base}"/>
+    <property name="log.filepath" value="${catalina.base}/logs/webapps"/>
     <property name="log.pattern" value="%d{yyyy-MM-dd HH:mm:ss:SSS} [%thread] %-5level %logger{50} - %msg%n"/>
     <!--日志控制台设置-->
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
@@ -19,7 +19,7 @@
         <file>${log.filepath}/debug.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--文件名称-->
-            <fileNamePattern>${log.filePath}/debug/debug.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <fileNamePattern>${log.filepath}/debug/debug.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
             <!--文件最大历史记录-->
             <MaxHistory>${log.maxHistory}</MaxHistory>
         </rollingPolicy>
@@ -38,7 +38,7 @@
         <file>${log.filepath}/info.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--文件名称-->
-            <fileNamePattern>${log.filePath}/info/info.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <fileNamePattern>${log.filepath}/info/info.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
             <!--文件最大历史记录-->
             <MaxHistory>${log.maxHistory}</MaxHistory>
         </rollingPolicy>
@@ -57,7 +57,7 @@
         <file>${log.filepath}/error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--文件名称-->
-            <fileNamePattern>${log.filePath}/error/error.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <fileNamePattern>${log.filepath}/error/error.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
             <!--文件最大历史记录-->
             <MaxHistory>${log.maxHistory}</MaxHistory>
         </rollingPolicy>
