@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yyc.webpro.dao.ShopDao">
+    <insert id="insertShop" useGeneratedKeys="true" keyColumn="shopId" keyProperty="shopId">
+        INSERT INTO Shop(ownerId, areaId, shopCategoryId, shopName, shopDesc, shopAddr,
+          phone, shopImg, priority, createTime, updateTime, enableStatus, advice)
+        VALUES
+        (#{owner.userId}, #{area.areaId}, #{shopCategory.shopCategoryId}, #{shopName},
+         #{shopDesc}, #{shopAddr}, #{phone}, #{shopImg}, #{priority}, #{createTime}, #{updateTime},
+         #{enableStatus}, #{advice})
+    </insert>
+
+    <update id="updateShop" parameterType="com.yyc.webpro.entity.Shop">
+        UPDATE Shop
+        <set>
+            <if test="shopName != null">shopName=#{shopName},</if>
+            <if test="shopDesc != null">shopDesc=#{shopDesc},</if>
+            <if test="shopAddr != null">shopAddr=#{shopAddr},</if>
+            <if test="phone != null">phone=#{phone},</if>
+            <if test="shopImg != null">shopImg=#{shopImg},</if>
+            <if test="priority != null">priority=#{priority},</if>
+            <if test="updateTime != null">updateTime=#{updateTime},</if>
+            <if test="enableStatus != null">enableStatus=#{enableStatus},</if>
+            <if test="advice != null">advice=#{advice},</if>
+            <if test="shopCategory != null">shopCategory=#{shopCategory.shopCategoryId},</if>
+            <if test="area != null">areaId=#{area.areaId}</if>
+        </set>
+        WHERE shopId = #{shopId}
+    </update>
+</mapper>
