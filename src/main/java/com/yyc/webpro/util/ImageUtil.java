@@ -47,7 +47,7 @@ public class ImageUtil {
      * 生成随机文件名
      * @param
      */
-    private static String getRandomFileName() {
+    public static String getRandomFileName() {
         int rannum = r.nextInt(89999) + 10000;
         String nowTimeStr = sDateFormat.format(new Date());
         return nowTimeStr + rannum;

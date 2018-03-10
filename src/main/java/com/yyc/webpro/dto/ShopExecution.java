@@ -13,6 +13,15 @@ public class ShopExecution {
     private String stateinfo;
 
     //店铺数量
+
+    public String getStateinfo() {
+        return stateinfo;
+    }
+
+    public void setStateinfo(String stateinfo) {
+        this.stateinfo = stateinfo;
+    }
+
     private int count;
 
     //操作的店铺(增删改查)
