@@ -25,6 +25,14 @@ public class ShopExecution {
 
     }
 
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
     /**
      * 店铺操作失败的构造器
      * @param stateEnum

@@ -25,7 +25,7 @@
             <if test="updateTime != null">updateTime=#{updateTime},</if>
             <if test="enableStatus != null">enableStatus=#{enableStatus},</if>
             <if test="advice != null">advice=#{advice},</if>
-            <if test="shopCategory != null">shopCategory=#{shopCategory.shopCategoryId},</if>
+            <if test="shopCategory != null">shopCategoryId=#{shopCategory.shopCategoryId},</if>
             <if test="area != null">areaId=#{area.areaId}</if>
         </set>
         WHERE shopId = #{shopId}

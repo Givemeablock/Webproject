@@ -1,25 +1,24 @@
-package com.yyc.webpro.dao;
+package com.yyc.webpro.service;
 
 import com.yyc.webpro.BasicTest;
+import com.yyc.webpro.dto.ShopExecution;
 import com.yyc.webpro.entity.Area;
 import com.yyc.webpro.entity.PersonInfo;
 import com.yyc.webpro.entity.Shop;
 import com.yyc.webpro.entity.ShopCategory;
-import org.junit.Ignore;
+import com.yyc.webpro.enums.ShopStateEnum;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
 import java.util.Date;
 
-public class ShopDaoTest extends BasicTest {
-
+public class ShopServiceTest extends BasicTest {
     @Autowired
-    private ShopDao shopDao;
+    private ShopService shopService;
 
     @Test
-    //这将不会执行该测试用例
-    @Ignore
-     public void testInsertShop(){
+    public void testAddShop() {
         Shop shop = new Shop();
         PersonInfo personInfo = new PersonInfo();
         Area area = new Area();
@@ -30,28 +29,17 @@ public class ShopDaoTest extends BasicTest {
         shop.setOwner(personInfo);
         shop.setArea(area);
         shop.setShopCategory(shopCategory);
-        shop.setShopName("test店铺");
-        shop.setShopDesc("test");
-        shop.setShopAddr("test");
-        shop.setPhone("test");
-        shop.setShopImg("test");
+        shop.setShopName("test店铺22");
+        shop.setShopDesc("test22");
+        shop.setShopAddr("test22");
+        shop.setPhone("test22");
         shop.setCreateTime(new Date());
-        shop.setEnableStatus(1);
+        shop.setEnableStatus(ShopStateEnum.CHECK.getState());
         shop.setAdvice("审核中");
+        File shopImg = new File("G:\\Documents\\Personal\\Pic\\MavenProPic\\test2.jpg");
 
-        shopDao.insertShop(shop);
+        ShopExecution se = shopService.addShop(shop, shopImg);
 
-    }
-
-    @Test
-    public void testUpdateShop(){
-        Shop shop = new Shop();
-        shop.setShopId(1L);
-        shop.setShopDesc("test更改");
-        shop.setUpdateTime(new Date());
-
-        int effectNum = shopDao.updateShop(shop);
-        assert 1 == effectNum;
-
+        assert ShopStateEnum.CHECK.getState() == se.getState();
     }
 }
