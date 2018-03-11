@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yyc.webpro.dao.ShopCategoryDao">
+    <select id="queryShopCategory" resultType="com.yyc.webpro.entity.ShopCategory">
+        select shopCategoryId, shopCategoryName, shopCategoryDesc,
+        shopCategoryImg, priority, createTime, updateTime,
+        parentId
+        from ShopCategory
+        <where>
+            <if test="shopCategoryCondition!= null">
+                and parentId is not null
+            </if>
+            <if test="shopCategoryCondition.parent!= null">
+              and parentId = #{shopCategoryCondition.parent.shopCategoryId}
+            </if>
+        </where>
+        Order By priority Desc
+    </select>
+</mapper>
