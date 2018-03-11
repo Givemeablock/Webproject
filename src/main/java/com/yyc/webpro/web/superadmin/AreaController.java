@@ -47,4 +47,10 @@ public class AreaController {
         logger.info("==end==");
         return modelMap;
     }
+
+    @RequestMapping("/world")
+    @ResponseBody
+    public String world(){
+        return "hello--------------";
+    }
 }
