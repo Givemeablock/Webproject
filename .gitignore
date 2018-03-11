@@ -1,4 +1,5 @@
-target/
+target/*
 catalina.base_IS_UNDEFINED
 log.filepath_IS_UNDEFINED
-.idea/
+.idea/*
+WebProject.iml
