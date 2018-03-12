@@ -11,6 +11,7 @@ public class ShopCategoryTest extends BasicTest{
 
     @Autowired
     private ShopCategoryDao shopCategoryDao;
+    //shopcategory相关dao test service controller在上次提交时候误提交了
 
     @Test
     public void testQueryShopCategory(){
