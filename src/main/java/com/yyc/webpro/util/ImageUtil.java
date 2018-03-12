@@ -7,6 +7,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -21,19 +22,20 @@ public class ImageUtil {
 
     /**
      *
-     * @param thumbnail
+     * @param thumbnailInputStream
+     * @param fileName
      * @param targetAddr
      * @return
      */
-    public static String generateThumbnail(File thumbnail, String targetAddr) {
+    public static String generateThumbnail(InputStream thumbnailInputStream, String fileName,  String targetAddr) {
 
         String realFileName = getRandomFileName();
-        String extension = getFileExtension(thumbnail);
+        String extension = getFileExtension(fileName);
         makeDirPath(targetAddr);
         String relativeAddr = targetAddr + realFileName + extension;
         File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
         try {
-            Thumbnails.of(thumbnail).size(200, 200).watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(
+            Thumbnails.of(thumbnailInputStream).size(200, 200).watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(
                     basePath + "/watermark.png")), 0.25f).outputQuality(0.8f).toFile(dest);
         }
         catch (Exception e){
@@ -58,9 +60,8 @@ public class ImageUtil {
      * 获取文件扩展名
      * @param
      */
-    private static String getFileExtension(File cFile) {
-        String oriFileName = cFile.getName();
-        return oriFileName.substring(oriFileName.lastIndexOf("."));
+    private static String getFileExtension(String fileName) {
+        return fileName.substring(fileName.lastIndexOf("."));
     }
 
     /**
@@ -77,13 +78,13 @@ public class ImageUtil {
     }
 
 
-    public static void main(String[] args) {
-        try {
-            Thumbnails.of(new File("G:\\Documents\\Personal\\Pic\\MavenProPic\\test1.jpg")).size(400,200)
-                    .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "/watermark.png")), 0.25f)
-                    .outputQuality(0.8f).toFile("G:\\Documents\\Personal\\Pic\\MavenProPic\\test1-copy.jpg");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void main(String[] args) {
+//        try {
+//            Thumbnails.of(new File("G:\\Documents\\Personal\\Pic\\MavenProPic\\test1.jpg")).size(400,200)
+//                    .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "/watermark.png")), 0.25f)
+//                    .outputQuality(0.8f).toFile("G:\\Documents\\Personal\\Pic\\MavenProPic\\test1-copy.jpg");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.Date;
 
 @Service
@@ -24,7 +25,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     @Transactional
-    public ShopExecution addShop(Shop shop, File shopImg) {
+    public ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException{
 
         //判断shop是不是空值
         if (shop==null) {
@@ -42,7 +43,7 @@ public class ShopServiceImpl implements ShopService {
             }
             else{
                 //添加成功
-                if (shopImg != null) {
+                if (shopImgInputStream != null) {
                     //存储图片
                     try {
 
@@ -50,7 +51,7 @@ public class ShopServiceImpl implements ShopService {
                     catch (Exception e) {
                         throw new ShopOperationException("添加店铺图片失败" + e.getMessage());
                     }
-                    addShopImg(shop, shopImg);
+                    addShopImg(shop, shopImgInputStream, fileName);
 
                     //更新店铺图片
                     effectNum = shopDao.updateShop(shop);
@@ -67,9 +68,9 @@ public class ShopServiceImpl implements ShopService {
     }
 
 
-    private void addShopImg(Shop shop, File shopImg) {
+    private void addShopImg(Shop shop, InputStream shopImgInputStream, String fileName) {
         String dest = PathUtil.getShopImagPath(shop.getShopId());
-        String shopImgAddr = ImageUtil.generateThumbnail(shopImg, dest);
+        String shopImgAddr = ImageUtil.generateThumbnail(shopImgInputStream, fileName, dest);
         shop.setShopImg(shopImgAddr);
     }
 }

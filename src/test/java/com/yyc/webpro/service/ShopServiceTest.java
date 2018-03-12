@@ -11,6 +11,9 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Date;
 
 public class ShopServiceTest extends BasicTest {
@@ -36,9 +39,15 @@ public class ShopServiceTest extends BasicTest {
         shop.setCreateTime(new Date());
         shop.setEnableStatus(ShopStateEnum.CHECK.getState());
         shop.setAdvice("审核中");
-        File shopImg = new File("G:\\Documents\\Personal\\Pic\\MavenProPic\\test2.jpg");
+        InputStream shopImg = null;
+        String fileName = "G:\\Documents\\Personal\\Pic\\MavenProPic\\2b.jpg";
+        try {
+            shopImg = new FileInputStream(fileName);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
-        ShopExecution se = shopService.addShop(shop, shopImg);
+        ShopExecution se = shopService.addShop(shop, shopImg, fileName);
 
         assert ShopStateEnum.CHECK.getState() == se.getState();
     }

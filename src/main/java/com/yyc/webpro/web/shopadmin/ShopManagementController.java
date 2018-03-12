@@ -7,6 +7,7 @@ import com.yyc.webpro.entity.PersonInfo;
 import com.yyc.webpro.entity.Shop;
 import com.yyc.webpro.entity.ShopCategory;
 import com.yyc.webpro.enums.ShopStateEnum;
+import com.yyc.webpro.exception.ShopOperationException;
 import com.yyc.webpro.service.AreaService;
 import com.yyc.webpro.service.ShopCategoryService;
 import com.yyc.webpro.service.ShopService;
@@ -79,6 +80,7 @@ public class ShopManagementController {
             return modelMap;
         }
 
+        //接收文件流
         CommonsMultipartFile shopImg = null;
         CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver(request.getSession().
                 getServletContext());
@@ -94,33 +96,44 @@ public class ShopManagementController {
         }
         //2.注册店铺
         if (shop != null && shopImg != null) {
+            //To-do  改为session
             PersonInfo owner = new PersonInfo();
             owner.setUserId(1L);
             shop.setOwner(owner);
-            File shopImgFile = new File(PathUtil.getImgBasePath() + ImageUtil.getRandomFileName());
+//            File shopImgFile = new File(PathUtil.getImgBasePath() + ImageUtil.getRandomFileName());
+//            try {
+//                shopImgFile.createNewFile();
+//            } catch (IOException e) {
+//                modelMap.put("success", false);
+//                modelMap.put("errMsg", e.getMessage());
+//                return modelMap;
+//            }
+//            try {
+//                inputStreamToFile(shopImg.getInputStream(), shopImgFile);
+//            } catch (IOException e) {
+//                modelMap.put("success", false);
+//                modelMap.put("errMsg", e.getMessage());
+//                return modelMap;
+//            }
+
+            ShopExecution se = null;
             try {
-                shopImgFile.createNewFile();
-            } catch (IOException e) {
+                se = shopService.addShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+                if (se.getState() == ShopStateEnum.CHECK.getState()) {
+                    modelMap.put("success", true);
+                }
+                else {
+                    modelMap.put("success", false);
+                    modelMap.put("errMsg", se.getStateinfo());
+                }
+            } catch (ShopOperationException e) {
                 modelMap.put("success", false);
                 modelMap.put("errMsg", e.getMessage());
-                return modelMap;
-            }
-            try {
-                inputStreamToFile(shopImg.getInputStream(), shopImgFile);
             } catch (IOException e) {
-                modelMap.put("success", false);
-                modelMap.put("errMsg", e.getMessage());
-                return modelMap;
+            modelMap.put("success", false);
+            modelMap.put("errMsg", e.getMessage());
             }
-            ShopExecution se = shopService.addShop(shop, shopImgFile);
-            if (se.getState() == ShopStateEnum.CHECK.getState()) {
-                modelMap.put("success", true);
-            }
-            else {
-                modelMap.put("success", false);
-                modelMap.put("errMsg", se.getStateinfo());
-            }
-            return modelMap;
+             return modelMap;
         }
         else{
             modelMap.put("success", false);
@@ -131,35 +144,35 @@ public class ShopManagementController {
         //3.返回结果
     }
 
-    private static void inputStreamToFile(InputStream ins, File file) {
-        FileOutputStream os = null;
-        try{
-            os = new FileOutputStream(file);
-            int bytesRead = 0;
-            byte[] buffer = new byte[1024];
-            while ((bytesRead = ins.read(buffer)) != -1) {
-                os.write(buffer, 0, bytesRead);
-            }
-        }
-        catch (Exception e) {
-            throw new RuntimeException("调用InputStreamToFile异常" + e.getMessage());
-        }
-        finally {
-            try {
-                if (os != null) {
-                    os.close();
-                }
-                if (ins != null) {
-                    ins.close();
-                }
-            }
-            catch (IOException e){
-                throw new RuntimeException("调用InputStreamToFile异常" + e.getMessage());
-            }
-
-
-        }
-    }
+//    private static void inputStreamToFile(InputStream ins, File file) {
+//        FileOutputStream os = null;
+//        try{
+//            os = new FileOutputStream(file);
+//            int bytesRead = 0;
+//            byte[] buffer = new byte[1024];
+//            while ((bytesRead = ins.read(buffer)) != -1) {
+//                os.write(buffer, 0, bytesRead);
+//            }
+//        }
+//        catch (Exception e) {
+//            throw new RuntimeException("调用InputStreamToFile异常" + e.getMessage());
+//        }
+//        finally {
+//            try {
+//                if (os != null) {
+//                    os.close();
+//                }
+//                if (ins != null) {
+//                    ins.close();
+//                }
+//            }
+//            catch (IOException e){
+//                throw new RuntimeException("调用InputStreamToFile异常" + e.getMessage());
+//            }
+//
+//
+//        }
+//    }
 
 
 }

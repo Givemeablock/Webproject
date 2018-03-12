@@ -13,4 +13,10 @@ public class testcontroller {
     public String world(){
         return "hello--------------";
     }
+
+    @RequestMapping("/test")
+    @ResponseBody
+    public String testHot() {
+        return "on hot deploy zzzzzzzzzzzz";
+    }
 }
