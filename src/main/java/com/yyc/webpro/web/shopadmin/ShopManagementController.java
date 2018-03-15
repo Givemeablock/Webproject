@@ -11,6 +11,7 @@ import com.yyc.webpro.exception.ShopOperationException;
 import com.yyc.webpro.service.AreaService;
 import com.yyc.webpro.service.ShopCategoryService;
 import com.yyc.webpro.service.ShopService;
+import com.yyc.webpro.util.CodeUtil;
 import com.yyc.webpro.util.HttpRequestUtil;
 import com.yyc.webpro.util.ImageUtil;
 import com.yyc.webpro.util.PathUtil;
@@ -67,18 +68,16 @@ public class ShopManagementController {
     @ResponseBody
     private Map<String, Object> registerShop(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<>();
-        //1.接受并转化相应的参数，包括店铺和图片
-        String shopStr = HttpRequestUtil.getString(request, "shopStr");
-        ObjectMapper mapper = new ObjectMapper();
-        Shop shop = null;
-        try {
-            shop = mapper.readValue(shopStr, Shop.class);
-        }
-        catch (Exception e) {
+        if(!CodeUtil.checkVerifyCode(request)) {
             modelMap.put("success", false);
-            modelMap.put("errMsg", e.getMessage());
+            modelMap.put("errMsg", "错误的验证码");
             return modelMap;
         }
+        //1.接受并转化相应的参数，包括店铺和图片
+        String shopStr = HttpRequestUtil.getString(request, "shopStr");
+        System.out.println(shopStr);
+        ObjectMapper mapper = new ObjectMapper();
+        Shop shop = null;
 
         //接收文件流
         CommonsMultipartFile shopImg = null;
@@ -94,8 +93,19 @@ public class ShopManagementController {
             modelMap.put("errMsg", "上传不能为空");
             return modelMap;
         }
+
+        try {
+            shop = mapper.readValue(shopStr, Shop.class);
+        }
+        catch (Exception e) {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", e.getMessage());
+            System.out.println(e.getMessage());
+            return modelMap;
+        }
+        //System.out.println(shop);
         //2.注册店铺
-        if (shop != null && shopImg != null) {
+        if (shop != null && !shopImg.isEmpty()) {
             //To-do  改为session
             PersonInfo owner = new PersonInfo();
             owner.setUserId(1L);
