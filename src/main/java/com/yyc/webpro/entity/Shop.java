@@ -140,4 +140,9 @@ public class Shop {
 	public void setShopCategory(ShopCategory shopCategory) {
 		this.shopCategory = shopCategory;
 	}
+
+	@Override
+	public String toString() {
+		return this.getShopName() + this.getShopCategory().getShopCategoryId()  + this.getArea().getAreaId();
+	}
 }
