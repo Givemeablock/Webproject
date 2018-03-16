@@ -24,6 +24,14 @@ public class ShopExecution {
 
     private int count;
 
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
     //操作的店铺(增删改查)
     private Shop shop;
 
