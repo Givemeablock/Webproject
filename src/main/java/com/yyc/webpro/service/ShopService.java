@@ -11,4 +11,7 @@ public interface ShopService {
 
     ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException;
 
+    ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException;
+
+    Shop getByShopId(long shopId);
 }

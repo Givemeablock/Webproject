@@ -30,4 +30,42 @@
         </set>
         WHERE shopId = #{shopId}
     </update>
+
+    <resultMap id="shopMap" type="com.yyc.webpro.entity.Shop">
+        <id column="shopId" property="shopId"/>
+        <result column="shopName" property="shopName"/>
+        <result column="shopDesc" property="shopDesc"/>
+        <result column="shopAddr" property="shopAddr"/>
+        <result column="phone" property="phone"/>
+        <result column="shopImg" property="shopImg"/>
+        <result column="priority" property="priority"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+        <result column="enableStatus" property="enableStatus"/>
+        <result column="advice" property="advice"/>
+
+        <association property="area" column="areaId" javaType="com.yyc.webpro.entity.Area">
+            <id column="areaId" property="areaId"/>
+            <result column="areaName" property="areaName"/>
+        </association>
+
+        <association property="shopCategory" column="shopCategoryId" javaType="com.yyc.webpro.entity.ShopCategory">
+            <id column="shopCategoryId" property="shopCategoryId"/>
+            <result column="shopCategoryName" property="shopCategoryName"/>
+        </association>
+
+        <association property="owner" column="userId" javaType="com.yyc.webpro.entity.PersonInfo">
+            <id column="userId" property="userId"/>
+            <result column="name" property="name"/>
+        </association>
+    </resultMap>
+
+
+    <select id="queryByShopId" resultMap="shopMap" parameterType="Long">
+        SELECT s.shopId, s.shopName, s.shopDesc, s.shopAddr, s.phone, s.shopImg, s.priority, s.createTime, s.updateTime,
+              s.enableStatus, s.advice, a.areaId, a.areaName, sc.shopCategoryId, sc.shopCategoryName
+        FROM shop s, area a, shopCategory sc WHERE s.areaId=a.areaId AND s.shopCategoryId=sc.shopCategoryId
+        AND s.shopId=#{shopId}
+    </select>
+
 </mapper>

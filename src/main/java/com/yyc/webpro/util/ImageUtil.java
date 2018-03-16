@@ -77,6 +77,22 @@ public class ImageUtil {
         }
     }
 
+    /**
+     * 若是文件路径，删除文件，若是目录路径，删除所有文件
+     */
+
+    public static void deleteFileOrPath(String storePath) {
+        File fileOrPath = new File(PathUtil.getImgBasePath() + storePath);
+        if (fileOrPath.exists()) {
+            if (fileOrPath.isDirectory()) {
+                File files[] = fileOrPath.listFiles();
+                for (int i = 0; i < files.length; i ++) {
+                    files[i].delete();
+                }
+            }
+            fileOrPath.delete();
+        }
+    }
 
 //    public static void main(String[] args) {
 //        try {

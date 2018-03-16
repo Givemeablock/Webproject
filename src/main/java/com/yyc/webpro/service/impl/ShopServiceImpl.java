@@ -26,7 +26,6 @@ public class ShopServiceImpl implements ShopService {
     @Override
     @Transactional
     public ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException{
-
         //判断shop是不是空值
         if (shop==null) {
             return new ShopExecution(ShopStateEnum.NULL_SHOPINFO);
@@ -46,12 +45,12 @@ public class ShopServiceImpl implements ShopService {
                 if (shopImgInputStream != null) {
                     //存储图片
                     try {
-
+                        addShopImg(shop, shopImgInputStream, fileName);
                     }
                     catch (Exception e) {
                         throw new ShopOperationException("添加店铺图片失败" + e.getMessage());
                     }
-                    addShopImg(shop, shopImgInputStream, fileName);
+
 
                     //更新店铺图片
                     effectNum = shopDao.updateShop(shop);
@@ -65,6 +64,46 @@ public class ShopServiceImpl implements ShopService {
             throw new ShopOperationException("addShop Error" + e.getMessage());
         }
         return new ShopExecution(ShopStateEnum.CHECK, shop);
+    }
+
+    @Override
+    @Transactional
+    public ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException {
+        //1.判断是否需要修改图片
+        try {
+            if ( shop == null || shop.getShopId() == null ) {
+                return new ShopExecution(ShopStateEnum.NULL_SHOPINFO);
+            }
+            else {
+                if (shopImgInputStream != null && fileName != null && !"".equals(fileName)) {
+                    Shop tempShop = shopDao.queryByShopId(shop.getShopId());
+                    if (tempShop.getShopImg() != null) {
+                        ImageUtil.deleteFileOrPath(tempShop.getShopImg());
+                    }
+                    addShopImg(shop, shopImgInputStream, fileName);
+
+                }
+            }
+            //2.更新店铺信息
+
+            shop.setUpdateTime(new Date());
+            int effectNum = shopDao.updateShop(shop);
+            if (effectNum <= 0) {
+                return new ShopExecution(ShopStateEnum.INNER_ERROR);
+            }
+            else {
+                shop = shopDao.queryByShopId(shop.getShopId());
+                return new ShopExecution(ShopStateEnum.SUCCESS, shop);
+            }
+        } catch (Exception e) {
+            throw  new ShopOperationException("modify shop failed");
+        }
+    }
+
+    @Override
+    public Shop getByShopId(long shopId) {
+        Shop shop = shopDao.queryByShopId(shopId);
+        return shop;
     }
 
 

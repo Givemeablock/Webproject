@@ -7,6 +7,7 @@ import com.yyc.webpro.entity.PersonInfo;
 import com.yyc.webpro.entity.Shop;
 import com.yyc.webpro.entity.ShopCategory;
 import com.yyc.webpro.enums.ShopStateEnum;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,6 +22,7 @@ public class ShopServiceTest extends BasicTest {
     private ShopService shopService;
 
     @Test
+    @Ignore
     public void testAddShop() {
         Shop shop = new Shop();
         PersonInfo personInfo = new PersonInfo();
@@ -50,5 +52,14 @@ public class ShopServiceTest extends BasicTest {
         ShopExecution se = shopService.addShop(shop, shopImg, fileName);
 
         assert ShopStateEnum.CHECK.getState() == se.getState();
+    }
+
+    @Test
+    public void testUpdateShop() {
+        Shop shop = new Shop();
+        shop.setShopId(13L);
+        shop.setAdvice("这是一个test中添加的建议");
+        ShopExecution se = shopService.modifyShop(shop, null, null);
+        assert se.getState() == ShopStateEnum.SUCCESS.getState();
     }
 }
