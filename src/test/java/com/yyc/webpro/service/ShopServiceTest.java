@@ -16,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 
 public class ShopServiceTest extends BasicTest {
     @Autowired
@@ -61,5 +62,24 @@ public class ShopServiceTest extends BasicTest {
         shop.setAdvice("这是一个test中添加的建议");
         ShopExecution se = shopService.modifyShop(shop, null, null);
         assert se.getState() == ShopStateEnum.SUCCESS.getState();
+    }
+
+
+    @Test
+    public void testgetShopList() {
+        //TO-DO
+
+        Shop shopCondition = new Shop();
+        ShopCategory sc = new ShopCategory();
+
+        sc.setShopCategoryId(1L);
+        shopCondition.setShopCategory(sc);
+
+        ShopExecution se = shopService.getShopList(shopCondition, 1, 3);
+
+        System.out.println(se.getShopList());
+        System.out.println(se.getCount());
+
+
     }
 }

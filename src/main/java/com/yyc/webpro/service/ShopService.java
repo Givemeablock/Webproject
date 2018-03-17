@@ -13,5 +13,7 @@ public interface ShopService {
 
     ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException;
 
+    ShopExecution getShopList(Shop shopCondition, int pageIndex, int pageSize);
+
     Shop getByShopId(long shopId);
 }

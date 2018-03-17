@@ -38,7 +38,24 @@ public class ShopExecution {
     //shop列表
     private List<Shop> shopList;
 
+    public List<Shop> getShopList() {
+        return shopList;
+    }
+
+    public void setShopList(List<Shop> shopList) {
+        this.shopList = shopList;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     public ShopExecution() {
+
 
     }
 
