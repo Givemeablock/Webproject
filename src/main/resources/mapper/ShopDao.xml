@@ -67,5 +67,57 @@
         FROM shop s, area a, shopCategory sc WHERE s.areaId=a.areaId AND s.shopCategoryId=sc.shopCategoryId
         AND s.shopId=#{shopId}
     </select>
+    
+    <select id="queryShopList" resultMap="shopMap">
+        SELECT s.shopId, s.shopName, s.shopDesc, s.shopAddr, s.phone, s.shopImg, s.priority, s.createTime, s.updateTime,
+              s.enableStatus, s.advice, a.areaId, a.areaName, sc.shopCategoryId, sc.shopCategoryName
+        FROM shop s, area a, shopCategory sc
+        <where>
+            <if test="shopCondition.shopCategory!=null and shopCondition.shopCategory.shopCategoryId!=null">
+                and s.shopCategoryId = #{shopCondition.shopCategory.shopCategoryId}
+            </if>
+            <if test="shopCondition.area!=null and shopCondition.area.areaId!=null">
+                and s.areId = #{shopCondition.area.areaId}
+            </if>
+            <if test="shopCondition.shopName!=null">
+                and s.shopName LIKE '%${shopCondition.shopName}%'
+            </if>
+            <if test="shopCondition.enableStatus!=null">
+                and s.enableStatus =#{shopCondition.enableStatus}
+            </if>
+            <if test="shopCondition.owner!=null and shopCondition.owner.userId!=null">
+                and s.ownerId = #{shopCondition.owner.userId}
+            </if>
+            AND
+            s.areaId=a.areaId
+            AND
+            s.shopCategoryId=sc.shopCategoryId
+        </where>
+        ORDER BY s.priority DESC LIMIT #{rowIndex}, #{pageSize};
+    </select>
 
+    <select id="queryShopCount" resultType="int">
+        SELECT count(1) FROM shop s, area a, shopCategory sc
+        <where>
+            <if test="shopCondition.shopCategory!=null and shopCondition.shopCategory.shopCategoryId!=null">
+                and s.shopCategoryId = #{shopCondition.shopCategory.shopCategoryId}
+            </if>
+            <if test="shopCondition.area!=null and shopCondition.area.areaId!=null">
+                and s.areId = #{shopCondition.area.areaId}
+            </if>
+            <if test="shopCondition.shopName!=null">
+                and s.shopName LIKE '%${shopCondition.shopName}%'
+            </if>
+            <if test="shopCondition.enableStatus!=null">
+                and s.enableStatus =#{shopCondition.enableStatus}
+            </if>
+            <if test="shopCondition.owner!=null and shopCondition.owner.userId!=null">
+                and s.ownerId = #{shopCondition.owner.userId}
+            </if>
+            AND
+            s.areaId=a.areaId
+            AND
+            s.shopCategoryId=sc.shopCategoryId
+        </where>
+    </select>
 </mapper>

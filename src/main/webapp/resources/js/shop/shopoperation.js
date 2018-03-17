@@ -6,7 +6,7 @@ js异步提交表单
 $(function() {
 
     var shopId = getQueryString("shopId");
-    var isEdit = shopId ? true : false;
+    var isEdit = !!shopId;
 
     var initUrl = "/shopadmin/getshopinitinfo";
     var registerShopUrl = "/shopadmin/registershop";
@@ -46,7 +46,6 @@ $(function() {
 
     //alert(initUrl);
     //getShopInitInfo();
-
     function getShopInitInfo() {
         $.getJSON(initUrl, function (data) {
             if (data.success) {
