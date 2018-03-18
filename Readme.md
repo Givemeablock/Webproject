@@ -11,7 +11,7 @@ SSM框架项目
 
 2. 实体类划分
 
-![实体类划分](pic/classes.png)
+![实体类划分](pic/classes.png) 
 
 3. 参考博客:
 
@@ -33,3 +33,4 @@ SSM框架项目
 
 [9.spring dto理解](http://blog.csdn.net/javaloveiphone/article/details/52606688)
 
+[10.详解mybatismapper](http://zhangrende.iteye.com/blog/2373722)
